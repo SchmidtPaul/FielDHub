@@ -48,6 +48,17 @@ test_that("diagonal arrangement draws entry numbers unabbreviated", {
   expect_labels_verbatim(p$p1, as.numeric(d$fieldBook$ENTRY))
 })
 
+test_that("plot() reaches the same labels through the public API", {
+  d <- diagonal_arrangement(
+    nrows = 15, ncols = 10, lines = 120, checks = 4,
+    plotNumber = 101, seed = 1
+  )
+  # plot() prints its layout, so send that to a null device
+  pdf(NULL)
+  on.exit(dev.off(), add = TRUE)
+  expect_labels_verbatim(plot(d)$p, as.numeric(d$fieldBook$ENTRY))
+})
+
 test_that("partially replicated design draws entry numbers unabbreviated", {
   p_rep <- partially_replicated(
     nrows = 14, ncols = 10, repGens = c(20, 100), repUnits = c(2, 1),
