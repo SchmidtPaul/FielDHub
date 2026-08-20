@@ -67,6 +67,15 @@
   the A-efficiency, because the best efficiencies were only stored inside
   the improvement branch; they are now initialized from the starting
   design.
+- Fixed a bug in the layout plots of `diagonal_arrangement()`,
+  `partially_replicated()` and `optimized_arrangement()` where the cell
+  labels were passed through `desplot`'s default abbreviation
+  (`shorten = "abb"`), so three-digit entry numbers were drawn without
+  their leading digit (entry 108 appeared as `08`); the labels are now
+  drawn verbatim. The augmented RCBD layout, which avoided this by
+  drawing its labels with a `ggplot2::geom_text()` overlay on top of
+  desplot, now uses the native `desplot` arguments as well, so its check
+  entries are still highlighted in red but no longer in bold.
 
 # FielDHub 1.3.1
 
